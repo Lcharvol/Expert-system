@@ -1,9 +1,11 @@
 import { ARGS_LENGTH_ERROR } from './constants/args';
+import { FgRed } from './constants/colors';
+import print from './print';
 import fs from 'fs';
 
 const checkArgsLength = args => {
     if(args.length !== 3) {
-        console.log(ARGS_LENGTH_ERROR)
+        print(ARGS_LENGTH_ERROR)
         process.exit();
     };
 };
@@ -13,7 +15,7 @@ const readFile = inputFileName => {
         var data = fs.readFileSync(inputFileName, 'utf8');
         return data;
     } catch(e) {
-        console.log(`Cannor read ${inputFileName} file!`);
+        print(`Cannor read ${inputFileName} file!`, FgRed);
         process.exit();
     }
 }
