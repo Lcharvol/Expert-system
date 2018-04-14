@@ -1,5 +1,7 @@
+import { map } from 'ramda';
+
 import { ARGS_LENGTH_ERROR } from './constants/args';
-import { FgRed } from './constants/colors';
+import { FgRed, FgGreen } from './constants/colors';
 import print from './print';
 import fs from 'fs';
 
@@ -20,11 +22,17 @@ const readFile = inputFileName => {
     }
 }
 
+const clearComment = fileContent => {
+    let lines = fileContent.split('\n');
+    lines = map(line => '', lines);
+    print(lines, FgGreen);
+}
+
 const parser = () => {
     const args = process.argv;
     checkArgsLength(args);
     const inputFileName = args[2];
-    const fileContent = readFile(inputFileName)
+    const fileContent = clearComment(readFile(inputFileName));
 };
 
 export default parser;

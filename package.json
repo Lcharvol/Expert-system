@@ -16,7 +16,8 @@
     "colors": "^1.1.2",
     "fs": "^0.0.1-security",
     "get-stdin": "^5.0.1",
-    "lodash": "^4.17.4"
+    "lodash": "^4.17.4",
+    "ramda": "^0.25.0"
   },
   "devDependencies": {
     "@babel/plugin-proposal-object-rest-spread": "^7.0.0-beta.44",
