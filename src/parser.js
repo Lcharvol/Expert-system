@@ -1,6 +1,6 @@
-import { ARGS_LENGTH_ERROR } from './constants';
+import { ARGS_LENGTH_ERROR } from './constants/args';
 
-const checkArgsNumber = args => {
+const checkArgsLength = args => {
     if(args.length !== 3) {
         console.log(ARGS_LENGTH_ERROR)
         process.exit();
@@ -9,7 +9,9 @@ const checkArgsNumber = args => {
 
 const parser = () => {
     const args = process.argv;
-    checkArgsNumber(args);
+    checkArgsLength(args);
+    const inputFile = args[2];
+    console.log('inputFile: ', inputFile)
 };
 
 export default parser;
