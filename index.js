@@ -1,3 +1,3 @@
-import start from './src/start.js';
+import parser from './src/parser.js';
 
-start();
+parser();
