@@ -1,4 +1,4 @@
-import { map } from 'ramda';
+import { map, dropLast, filter, isEmpty } from 'ramda';
 
 import { ARGS_LENGTH_ERROR } from './constants/args';
 import { FgRed, FgGreen } from './constants/colors';
@@ -14,7 +14,7 @@ const checkArgsLength = args => {
 
 const readFile = inputFileName => {
     try {  
-        var data = fs.readFileSync(inputFileName, 'utf8');
+        var data = fs.readFileSync(inputFileName, 'utf-8');
         return data;
     } catch(e) {
         print(`Cannor read ${inputFileName} file!`, FgRed);
@@ -22,17 +22,24 @@ const readFile = inputFileName => {
     }
 }
 
-const clearComment = fileContent => {
+const removeComment = line => {
+    const commentPos = line.indexOf('#');
+    if (commentPos === -1) return line;
+    return dropLast(line.length - commentPos, line).replace(/\s/g, '');
+}
+
+const getFormatedInput = fileContent => {
     let lines = fileContent.split('\n');
-    lines = map(line => '', lines);
-    print(lines, FgGreen);
+    lines = filter(line => line.length > 0, map(removeComment, lines));
+    return lines;
 }
 
 const parser = () => {
     const args = process.argv;
     checkArgsLength(args);
     const inputFileName = args[2];
-    const fileContent = clearComment(readFile(inputFileName));
+    const fileContent = getFormatedInput(readFile(inputFileName));
+    console.log(fileContent)
 };
 
 export default parser;
