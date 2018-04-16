@@ -1,10 +1,10 @@
 import { test, dropLast, drop } from 'ramda';
 
-import { FgRed } from '../constants/colors';
-import print from '../print';
-import { RULE_FORMAT_ERROR } from '../constants/errors';
-import { IMPLIES, IF_AND_ONLY_IF } from '../constants/symbols';
-import { isCapitalizAlpha } from '../utils';
+import { FgRed } from '../../constants/colors';
+import print from '../../print';
+import { RULE_FORMAT_ERROR } from '../../constants/errors';
+import { IMPLIES, IF_AND_ONLY_IF } from '../../constants/symbols';
+import { checkRuleSideFormat } from './format';
 
 const getRuleType = line => {
     const impliesRegex = new RegExp(`(${IMPLIES})`);
@@ -18,13 +18,6 @@ const getRuleType = line => {
         print(`${RULE_FORMAT_ERROR}${line}"`, FgRed);
         process.exit();
     }
-};
-
-const checkRuleSideFormat = side => {
-    for (var i = 0; i < side.length; i++) {
-        if(isCapitalizAlpha(side[i])) console.log('side[i] : ', side[i])
-    }
-    return true;
 };
 
 const getRuleLeftSideLine = line => {

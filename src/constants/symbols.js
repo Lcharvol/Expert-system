@@ -4,7 +4,7 @@ export const AND = '+';
 
 export const OR = '|';
 
-export const XOR = 'ˆ';
+export const XOR = '^';
 
 export const IMPLIES = '=>';
 

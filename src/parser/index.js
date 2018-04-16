@@ -3,7 +3,7 @@ import fs from 'fs';
 
 import { ARGS_LENGTH_ERROR } from '../constants/errors';
 import { FgRed, FgGreen } from '../constants/colors';
-import { initialDataStruct } from '../constants/initialDataStruct';
+import { initialDataStruct } from '../initialDataStruct';
 import { isLineInitialFacts, setInitialFacts } from './InitialFacts';
 import { isLineQueries, setQueries } from './queries';
 import { setRule } from './rules';
