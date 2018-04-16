@@ -9,7 +9,7 @@ import fs from 'fs';
 
 const checkArgsLength = args => {
     if(args.length !== 3) {
-        print(ARGS_LENGTH_ERROR)
+        print(ARGS_LENGTH_ERROR, FgRed)
         process.exit();
     };
 };
@@ -39,7 +39,7 @@ const getCleanedInput = fileContent => {
 const getFormatedDataStruct = (initialDataStruct, fileContent) => {
     let newDataStruct = initialDataStruct
     map(line => {
-        if(isLineInitialFacts(line)) newDataStruct.initialFacts = setInitialFacts(newDataStruct.initialFacts, line);
+        if(isLineInitialFacts(line)) newDataStruct.initialFacts = setInitialFacts(newDataStruct.initialFacts, line, fileContent);
     }, fileContent);
     return newDataStruct;
 };
