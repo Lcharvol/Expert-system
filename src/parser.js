@@ -5,7 +5,7 @@ import { FgRed, FgGreen } from './constants/colors';
 import { initialDataStruct } from './constants/initialDataStruct';
 import { isLineInitialFacts, setInitialFacts } from './InitialFacts';
 import { isLineQueries, setQueries } from './queries';
-import { setRules } from './rules';
+import { setRule } from './rules';
 import print from './print';
 import fs from 'fs';
 
@@ -39,12 +39,12 @@ const getCleanedInput = fileContent => {
 }
 
 const getFormatedDataStruct = (initialDataStruct, fileContent) => {
-    let newDataStruct = initialDataStruct
-    map(line => {
+    let newDataStruct = initialDataStruct;
+    fileContent.map((line, index) => {
         if(isLineInitialFacts(line)) newDataStruct.initialFacts = setInitialFacts(newDataStruct.initialFacts, line, fileContent);
         else if(isLineQueries(line)) newDataStruct.queries = setQueries(newDataStruct.queries, line);
-        else newDataStruct.rules = setRules(newDataStruct.rules, line);
-    }, fileContent);
+        else newDataStruct.rules = setRule(newDataStruct.rules, line, index);
+    });
     return newDataStruct;
 };
 

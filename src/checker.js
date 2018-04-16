@@ -9,10 +9,10 @@ const checker = dataStruct => {
         print(NO_INITIAL_FACTS_ERROR, FgRed);
         process.exit();
     };
-    // if(isEmpty(dataStruct.rules)) {
-    //     print(NO_RULES_ERROR, FgRed);
-    //     process.exit();
-    // };
+    if(isEmpty(dataStruct.rules)) {
+        print(NO_RULES_ERROR, FgRed);
+        process.exit();
+    };
     if(isEmpty(dataStruct.queries)) {
         print(NO_QUERIES_ERROR, FgRed);
         process.exit();
