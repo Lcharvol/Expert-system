@@ -1,14 +1,14 @@
 import { map, filter, isEmpty } from 'ramda';
 import fs from 'fs';
 
-import { ARGS_LENGTH_ERROR } from './constants/errors';
-import { FgRed, FgGreen } from './constants/colors';
-import { initialDataStruct } from './constants/initialDataStruct';
+import { ARGS_LENGTH_ERROR } from '../constants/errors';
+import { FgRed, FgGreen } from '../constants/colors';
+import { initialDataStruct } from '../constants/initialDataStruct';
 import { isLineInitialFacts, setInitialFacts } from './InitialFacts';
 import { isLineQueries, setQueries } from './queries';
 import { setRule } from './rules';
-import { removeComment, removeSpace } from './utils';
-import print from './print';
+import { removeComment, removeSpace } from '../utils';
+import print from '../print';
 
 const checkArgsLength = args => {
     if(args.length !== 3) {
@@ -27,13 +27,12 @@ const readFile = inputFileName => {
     }
 }
 
-// Cleaning line function
 const clean = line => removeSpace(removeComment(line));
 
 const getCleanedInput = fileContent => {
-    let lines = fileContent.split('\n');
-    lines = filter(line => line.length > 0, map(clean, lines));
-    return lines;
+    let lines = fileContent.split('\n');// Split every line of the text file into an array.
+    lines = filter(line => line.length > 0, map(clean, lines)); // Clean every line and remove empty one.
+    return lines; // Return cleaned line.
 }
 
 const getFormatedDataStruct = (initialDataStruct, fileContent) => {

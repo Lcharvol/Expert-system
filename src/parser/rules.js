@@ -1,10 +1,10 @@
 import { test, dropLast, drop } from 'ramda';
 
-import { FgRed } from './constants/colors';
-import print from './print';
-import { RULE_FORMAT_ERROR } from './constants/errors';
-import { IMPLIES, IF_AND_ONLY_IF } from './constants/symbols';
-import { isCapitalizAlpha } from './utils';
+import { FgRed } from '../constants/colors';
+import print from '../print';
+import { RULE_FORMAT_ERROR } from '../constants/errors';
+import { IMPLIES, IF_AND_ONLY_IF } from '../constants/symbols';
+import { isCapitalizAlpha } from '../utils';
 
 const getRuleType = line => {
     const impliesRegex = new RegExp(`(${IMPLIES})`);

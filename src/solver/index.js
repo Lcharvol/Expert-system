@@ -1,5 +1,5 @@
-import { FgGreen } from './constants/colors';
-import print from './print';
+import { FgGreen } from '../constants/colors';
+import print from '../print';
 
 const util = require('util')
 

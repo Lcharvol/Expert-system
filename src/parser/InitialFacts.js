@@ -1,6 +1,5 @@
 import { map } from 'ramda';
-
-import { isCapitalizAlpha } from './utils';
+import { isCapitalizAlpha } from '../utils';
 
 export const isLineInitialFacts = line => line[0] === '=' && line[1] !== '>';
 
