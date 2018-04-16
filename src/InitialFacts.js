@@ -1,6 +1,6 @@
 import { map } from 'ramda';
 
-export const isLineInitialFacts = line => line[0] === '=';
+export const isLineInitialFacts = line => line[0] === '=' && line[1] !== '>';
 
 export const getAllFacts = (initialFacts, fileContent) => {
     map(line => {

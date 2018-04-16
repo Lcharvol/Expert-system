@@ -19,14 +19,20 @@ const getRuleType = line => {
     }
 };
 
+const checkRulSideFormat = side => {
+    for (var i = 0; i < side.length; i++) {
+    }
+    return true;
+};
+
 const getRuleLeftSideLine = line => {
     let endOfLeftSide = 0;
     for (var i = 0; i < line.length; i++) {
-        if(line[i] === '<'  || line[i] === '=') break;
+        if(line[i] === '<' || line[i] === '=') break;
         endOfLeftSide++;
     }
     const leftSide = dropLast(line.length - endOfLeftSide, line);
-    if(leftSide.length === 0) {
+    if(leftSide.length === 0 || !checkRulSideFormat(leftSide)) {
         print(`${RULE_FORMAT_ERROR}${line}"`, FgRed);
         process.exit();
     }
@@ -40,7 +46,7 @@ const getRuleRightSideLine = line => {
         if(line[i] === '>') break;
     }
     const rightSide = drop(endOfLeftSide, line);
-    if(rightSide.length === 0) {
+    if(rightSide.length === 0 || !checkRulSideFormat(rightSide)) {
         print(`${RULE_FORMAT_ERROR}${line}"`, FgRed);
         process.exit();
     }
@@ -59,4 +65,4 @@ export const setRule = (rules, line, lineIndex) => {
         },
     }}
     return rules;
-}
+};
