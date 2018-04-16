@@ -1,5 +1,4 @@
 export const initialDataStruct = {
-    initialFacts: {
-
-    },
+    initialFacts: {},
+    queries: [],
 }

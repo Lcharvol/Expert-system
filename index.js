@@ -1,3 +1,4 @@
 import parser from './src/parser.js';
 
-parser();
+const dataStruct = parser();
+console.log('dataStruct: ', dataStruct)

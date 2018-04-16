@@ -4,6 +4,7 @@ import { ARGS_LENGTH_ERROR } from './constants/args';
 import { FgRed, FgGreen } from './constants/colors';
 import { initialDataStruct } from './constants/initialDataStruct';
 import { isLineInitialFacts, setInitialFacts } from './InitialFacts';
+import { isLineQueries, setQueries } from './queries';
 import print from './print';
 import fs from 'fs';
 
@@ -40,6 +41,7 @@ const getFormatedDataStruct = (initialDataStruct, fileContent) => {
     let newDataStruct = initialDataStruct
     map(line => {
         if(isLineInitialFacts(line)) newDataStruct.initialFacts = setInitialFacts(newDataStruct.initialFacts, line, fileContent);
+        if(isLineQueries(line)) newDataStruct.queries = setQueries(newDataStruct.queries, line);
     }, fileContent);
     return newDataStruct;
 };
@@ -50,7 +52,7 @@ const parser = () => {
     const inputFileName = args[2];
     const fileContent = getCleanedInput(readFile(inputFileName));
     const dataStruct = getFormatedDataStruct(initialDataStruct, fileContent);
-    console.log('dataStruct: ', dataStruct)
+    return dataStruct;
 };
 
 export default parser;
