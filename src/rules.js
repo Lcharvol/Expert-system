@@ -4,6 +4,7 @@ import { FgRed } from './constants/colors';
 import print from './print';
 import { RULE_FORMAT_ERROR } from './constants/errors';
 import { IMPLIES, IF_AND_ONLY_IF } from './constants/symbols';
+import { isCapitalizAlpha } from './utils';
 
 const getRuleType = line => {
     const impliesRegex = new RegExp(`(${IMPLIES})`);
@@ -19,8 +20,9 @@ const getRuleType = line => {
     }
 };
 
-const checkRulSideFormat = side => {
+const checkRuleSideFormat = side => {
     for (var i = 0; i < side.length; i++) {
+        if(isCapitalizAlpha(side[i])) console.log('side[i] : ', side[i])
     }
     return true;
 };
@@ -32,7 +34,7 @@ const getRuleLeftSideLine = line => {
         endOfLeftSide++;
     }
     const leftSide = dropLast(line.length - endOfLeftSide, line);
-    if(leftSide.length === 0 || !checkRulSideFormat(leftSide)) {
+    if(leftSide.length === 0 || !checkRuleSideFormat(leftSide)) {
         print(`${RULE_FORMAT_ERROR}${line}"`, FgRed);
         process.exit();
     }
@@ -46,7 +48,7 @@ const getRuleRightSideLine = line => {
         if(line[i] === '>') break;
     }
     const rightSide = drop(endOfLeftSide, line);
-    if(rightSide.length === 0 || !checkRulSideFormat(rightSide)) {
+    if(rightSide.length === 0 || !checkRuleSideFormat(rightSide)) {
         print(`${RULE_FORMAT_ERROR}${line}"`, FgRed);
         process.exit();
     }
