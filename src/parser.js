@@ -1,10 +1,11 @@
 import { map, dropLast, filter, isEmpty } from 'ramda';
 
-import { ARGS_LENGTH_ERROR } from './constants/args';
+import { ARGS_LENGTH_ERROR } from './constants/errors';
 import { FgRed, FgGreen } from './constants/colors';
 import { initialDataStruct } from './constants/initialDataStruct';
 import { isLineInitialFacts, setInitialFacts } from './InitialFacts';
 import { isLineQueries, setQueries } from './queries';
+import { setRules } from './rules';
 import print from './print';
 import fs from 'fs';
 
@@ -41,7 +42,8 @@ const getFormatedDataStruct = (initialDataStruct, fileContent) => {
     let newDataStruct = initialDataStruct
     map(line => {
         if(isLineInitialFacts(line)) newDataStruct.initialFacts = setInitialFacts(newDataStruct.initialFacts, line, fileContent);
-        if(isLineQueries(line)) newDataStruct.queries = setQueries(newDataStruct.queries, line);
+        else if(isLineQueries(line)) newDataStruct.queries = setQueries(newDataStruct.queries, line);
+        else newDataStruct.rules = setRules(newDataStruct.rules, line);
     }, fileContent);
     return newDataStruct;
 };
