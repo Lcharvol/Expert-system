@@ -1,10 +1,11 @@
-import { test, dropLast, drop } from 'ramda';
+import { test, dropLast, drop, times, indexOf } from 'ramda';
 
 import { FgRed } from '../../constants/colors';
 import print from '../../print';
 import { RULE_FORMAT_ERROR } from '../../constants/errors';
-import { IMPLIES, IF_AND_ONLY_IF } from '../../constants/symbols';
+import { IMPLIES, IF_AND_ONLY_IF, RIGHT_CHEV, LEFT_CHEV, EQUAL } from '../../constants/symbols';
 import { checkRuleSideFormat } from './format';
+import { formatExit } from '../../exit';
 
 const getRuleType = line => {
     const impliesRegex = new RegExp(`(${IMPLIES})`);
@@ -14,42 +15,27 @@ const getRuleType = line => {
         return IF_AND_ONLY_IF;
     } else if(test(impliesRegex, line)) {
         return IMPLIES;
-    } else {
-        print(`${RULE_FORMAT_ERROR}${line}"`, FgRed);
-        process.exit();
-    }
+    } else formatExit(line);
 };
 
 const getRuleLeftSideLine = line => {
-    let endOfLeftSide = 0;
-    for (var i = 0; i < line.length; i++) {
-        if(line[i] === '<' || line[i] === '=') break;
-        endOfLeftSide++;
-    }
+    const leftChevIndex = indexOf(LEFT_CHEV, line);
+    const equalIndex = indexOf(EQUAL, line)
+    const endOfLeftSide = leftChevIndex !== -1 ? leftChevIndex : equalIndex;
     const leftSide = dropLast(line.length - endOfLeftSide, line);
-    if(leftSide.length === 0 || !checkRuleSideFormat(leftSide)) {
-        print(`${RULE_FORMAT_ERROR}${line}"`, FgRed);
-        process.exit();
-    }
+    if(leftSide.length === 0 || !checkRuleSideFormat(leftSide)) formatExit(leftSide);
     return leftSide;
 };
 
 const getRuleRightSideLine = line => {
-    let endOfLeftSide = 0;
-    for (var i = 0; i < line.length; i++) {
-        endOfLeftSide++;
-        if(line[i] === '>') break;
-    }
-    const rightSide = drop(endOfLeftSide, line);
-    if(rightSide.length === 0 || !checkRuleSideFormat(rightSide)) {
-        print(`${RULE_FORMAT_ERROR}${line}"`, FgRed);
-        process.exit();
-    }
+    const rightSide = drop(indexOf(RIGHT_CHEV, line) + 1, line);
+    if(rightSide.length === 0 || !checkRuleSideFormat(rightSide)) formatExit(rightSide);
     return rightSide;
 };
 
-export const setRule = (rules, line, lineIndex) => {
-    rules = {...rules, [lineIndex]: {
+export const setRule = (rules, line, lineIndex) => ({
+    ...rules,
+    [lineIndex]: {
         ...rules[lineIndex],
         type: getRuleType(line),
         leftSide: {
@@ -57,7 +43,6 @@ export const setRule = (rules, line, lineIndex) => {
         },
         rightSide: {
             line: getRuleRightSideLine(line)
-        },
-    }}
-    return rules;
-};
+        }
+    },
+});
