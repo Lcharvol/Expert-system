@@ -1,9 +1,11 @@
-import { map } from 'ramda';
+import { map, times } from 'ramda';
+
+import { LEFT_CHEV, EQUAL } from '../constants/symbols';
 import { isCapitalizAlpha } from '../utils';
 
-export const isLineInitialFacts = line => line[0] === '=' && line[1] !== '>';
+export const isLineInitialFacts = line => line[0] === EQUAL && (isCapitalizAlpha(line[1]) || isNill(line[1]));
 
-export const getAllFacts = (initialFacts, fileContent) => {
+const getAllFacts = (initialFacts, fileContent) => {
     map(line => {
         map(char => {
             if(isCapitalizAlpha(char)) {
@@ -16,8 +18,6 @@ export const getAllFacts = (initialFacts, fileContent) => {
 
 export const setInitialFacts = (initialFacts, line, fileContent) => {
     initialFacts = getAllFacts(initialFacts, fileContent);
-    for (var i = 1; i < line.length; i++) {
-        initialFacts = {...initialFacts, [line[i]]: true}
-    }
+    times(i => initialFacts = {...initialFacts, [line[i + 1]]: true}, line.length - 1)
     return initialFacts
 };
