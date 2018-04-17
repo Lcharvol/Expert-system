@@ -19,3 +19,5 @@ export const LEFT_CHEV = '<';
 export const RIGHT_CHEV = '>';
 
 export const EQUAL = '=';
+
+export const INTERROGATION_POINT = '?';

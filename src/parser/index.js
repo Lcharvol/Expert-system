@@ -1,30 +1,24 @@
 import { map, filter, isEmpty } from 'ramda';
 import fs from 'fs';
 
-import { ARGS_LENGTH_ERROR } from '../constants/errors';
 import { FgRed, FgGreen } from '../constants/colors';
 import { initialDataStruct } from '../initialDataStruct';
 import { isLineInitialFacts, setInitialFacts } from './InitialFacts';
 import { isLineQueries, setQueries } from './queries';
 import { setRule } from './rules';
+import { readExit, argsLengthExit } from '../exit';
 import { removeComment, removeSpace } from '../utils';
 import print from '../print';
 
-const checkArgsLength = args => {
-    if(args.length !== 3) {
-        print(ARGS_LENGTH_ERROR, FgRed)
-        process.exit();
-    };
-};
+const checkArgsLength = args => args.length !== 3 && argsLengthExit();
 
 const readFile = inputFileName => {
     try {
         var data = fs.readFileSync(inputFileName, 'utf-8');
         return data;
     } catch(e) {
-        print(`Cannor read ${inputFileName} file!`, FgRed);
-        process.exit();
-    }
+        readExit(inputFileName)
+    };
 }
 
 const clean = line => removeSpace(removeComment(line));

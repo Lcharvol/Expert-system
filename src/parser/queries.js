@@ -1,8 +1,9 @@
-export const isLineQueries = line => line[0] === '?';
+import { times } from 'ramda';
+import { INTERROGATION_POINT } from '../constants/symbols';
+
+export const isLineQueries = line => line[0] === INTERROGATION_POINT;
 
 export const setQueries = (initialQueries, line) => {
-    for (var i = 1; i < line.length; i++) {
-        initialQueries = [...initialQueries, line[i]];
-    }
+    times(i => initialQueries = [...initialQueries, line[i + 1]], line.length - 1);
     return initialQueries
 };
