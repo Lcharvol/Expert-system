@@ -1,23 +1,31 @@
+import { times, anyPass, isNil, equals } from 'ramda';
+
 import print from '../../print';
-import { isCapitalizAlpha, isAnOperator } from '../../utils';
+import { isCapitalizAlpha, isAnOperator, isABracket, isANot } from '../../utils';
 import { RULE_FORMAT_ERROR } from '../../constants/errors';
 import { FgRed } from '../../constants/colors';
-import { isABracket, isANot } from '../../utils';
+import { RIGHT_BRACKET, LEFT_BRACKET } from '../../constants/symbols';
+import { formatExit } from '../../exit';
+
+export const isCorrectAferAlpha =  anyPass([isNil, isAnOperator, isABracket, isANot, equals(LEFT_BRACKET)]);
+
+export const isCorrectAfterOperator = anyPass([isCapitalizAlpha, isANot, equals(RIGHT_BRACKET)]);
+
+export const isCorrectAfterANot = anyPass([isCapitalizAlpha, equals(LEFT_BRACKET)]);
 
 export const checkRuleSideFormat = side => {
-    for (var i = 0; i < side.length; i++) {
-        if(isCapitalizAlpha(side[i])) {
-            if(side[i + 1] !== undefined && !isAnOperator(side[i + 1])) {
-                print(`${RULE_FORMAT_ERROR}${side}"`, FgRed);
-                process.exit();
-            }
-        }
-        if (isAnOperator(side[i])) {
-            if(side[i + 1] !== undefined && !isCapitalizAlpha(side[i + 1]) && !isANot(side[i + 1])) {
-                print(`${RULE_FORMAT_ERROR}${side}"`, FgRed);
-                process.exit();
-            }
-        }
-    }
+    // Calls an input function side.length times.
+    times(i => {
+        // Check if every characters are a letter, an operator or a negation
+        if(isCapitalizAlpha(side[i])) 
+            if (!isCorrectAferAlpha(side[i + 1])) formatExit(side);
+        else if (isAnOperator(side[i]))
+            if(!isCorrectAfterOperator(side[i + 1])) formatExit(side);
+        else if (isANot(side[i]))
+            if(!isCorrectAfterANot(side[i + 1])) formatExit(side);
+        else if (isABracket(side[i]))
+            return;
+        else formatExit();
+    }, side.length);
     return true;
 };

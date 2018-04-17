@@ -1,6 +1,6 @@
 import parser from './src/parser';
-import solver from './src/solver';
 import validation from './src/validation';
+import solver from './src/solver';
 
 // Let's fill our dataStuct with the .txt parcing. Errors will be displayed in case of opening problem.
 const dataStruct = parser();

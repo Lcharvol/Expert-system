@@ -18,7 +18,7 @@ const checkArgsLength = args => {
 };
 
 const readFile = inputFileName => {
-    try {  
+    try {
         var data = fs.readFileSync(inputFileName, 'utf-8');
         return data;
     } catch(e) {

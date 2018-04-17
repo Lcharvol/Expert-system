@@ -1,14 +1,14 @@
 import { dropLast } from 'ramda';
 import { NOT, AND, OR, XOR, RIGHT_BRACKET, LEFT_BRACKET } from './constants/symbols';
 
-export const isABracket = char => char === LEFT_BRACKET || char === RIGHT_BRACKET;
+export const isABracket = c => c === LEFT_BRACKET || c === RIGHT_BRACKET;
 
-export const isANot = char => char === NOT;
+export const isANot = c => c === NOT;
 
-export const isCapitalizAlpha = char => char.match('[A-Z]');
+export const isCapitalizAlpha = c => c !== undefined && c.match('[A-Z]');
 
-export const isAnOperator = char => {
-    if(char === NOT || char === AND || char === OR || char === XOR || char === RIGHT_BRACKET || char === LEFT_BRACKET)
+export const isAnOperator = c => {
+    if(c === AND || c === OR || c === XOR)
         return true;
     return false;
 };
