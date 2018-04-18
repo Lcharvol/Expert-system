@@ -1,4 +1,4 @@
-import { map, drop, contains, isEmpty } from 'ramda';
+import { map, drop, contains, isEmpty, keys } from 'ramda';
 
 import { isCapitalizAlpha } from '../../utils';
 import { queriesFormatExit, queriesNotDefinedExit } from '../../exit';
@@ -9,7 +9,7 @@ export const areQueriesDefined = dataStruct => {
     const { initialFacts, queries } = dataStruct;
     let undefinedQueries = [];
     map(querie => {
-        if(!contains(querie, initialFacts)) undefinedQueries = [...undefinedQueries, querie];
+        if(!contains(querie, keys(initialFacts))) undefinedQueries = [...undefinedQueries, querie];
     },queries);
     if (!isEmpty(undefinedQueries)) queriesNotDefinedExit(undefinedQueries);
 }

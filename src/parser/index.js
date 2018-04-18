@@ -53,8 +53,8 @@ const parser = () => {
     checkArgsLength(args); // Check if we got only one argument.
     const inputFileName = args[2]; // Get the fileName inpute.
     const fileContent = getCleanedInput(readFile(inputFileName)); // Read the file and format it in an array without all spaces and commented text.
-    const dataStruct = getFormatedDataStruct(initialDataStruct, fileContent);
-    finalCheck(dataStruct); // Now let's start the real parcin to get a proper dataStruct
+    const dataStruct = getFormatedDataStruct(initialDataStruct, fileContent); // Now let's start the real parcin to get a proper dataStruct
+    finalCheck(dataStruct); // Final check for existing queries
     return dataStruct;//return the dataStruct to the main function
 };
 

@@ -1,12 +1,13 @@
 import { map, times } from 'ramda';
 
-import { LEFT_CHEV, EQUAL } from '../constants/symbols';
+import { LEFT_CHEV, EQUAL, INTERROGATION_POINT } from '../constants/symbols';
 import { isCapitalizAlpha } from '../utils';
 
 export const isLineInitialFacts = line => line[0] === EQUAL && (isCapitalizAlpha(line[1]) || isNill(line[1]));
 
 const getAllFacts = (initialFacts, fileContent) => {
     map(line => {
+        if(line[0] === INTERROGATION_POINT) return;
         map(char => {
             if(isCapitalizAlpha(char)) {
                 initialFacts = {...initialFacts, [char]: false}

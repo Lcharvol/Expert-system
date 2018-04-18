@@ -16,6 +16,7 @@ const printSolition = dataStruct => {
 const solver = dataStruct => {
     print('Solver start', FgGreen)
     printSolition(dataStruct);
+    //console.log(util.inspect(dataStruct, false, null));
 }
 
 export default solver;
