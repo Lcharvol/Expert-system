@@ -1,5 +1,6 @@
 import { dropLast, length } from 'ramda';
 import { NOT, AND, OR, XOR, RIGHT_BRACKET, LEFT_BRACKET } from './constants/symbols';
+import { FgRed, FgGreen } from './constants/colors';
 
 export const isABracket = c => c === LEFT_BRACKET || c === RIGHT_BRACKET;
 
@@ -21,3 +22,5 @@ export const removeComment = str => {
 };
 
 export const addSpaces = str => str.split('').join(' ');
+
+export const getSolutionColor = value => value ? FgGreen : FgRed;

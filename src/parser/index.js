@@ -5,8 +5,9 @@ import { FgRed, FgGreen } from '../constants/colors';
 import { initialDataStruct } from '../initialDataStruct';
 import { isLineInitialFacts, setInitialFacts } from './InitialFacts';
 import { isLineQueries, setQueries } from './queries';
+import { areQueriesDefined } from './queries/format';
 import { setRule } from './rules';
-import { readExit, argsLengthExit } from '../exit';
+import { readExit, argsLengthExit, queriesNotDefinedExit } from '../exit';
 import { removeComment, removeSpace } from '../utils';
 import print from '../print';
 
@@ -43,12 +44,17 @@ const getFormatedDataStruct = (initialDataStruct, fileContent) => {
     return initialDataStruct;
 };
 
+const finalCheck = dataStruct => {
+    areQueriesDefined(dataStruct);
+}
+
 const parser = () => {
     const args = process.argv; // Get args from process global object.
     checkArgsLength(args); // Check if we got only one argument.
     const inputFileName = args[2]; // Get the fileName inpute.
     const fileContent = getCleanedInput(readFile(inputFileName)); // Read the file and format it in an array without all spaces and commented text.
-    const dataStruct = getFormatedDataStruct(initialDataStruct, fileContent); // Now let's start the real parcin to get a proper dataStruct
+    const dataStruct = getFormatedDataStruct(initialDataStruct, fileContent);
+    finalCheck(dataStruct); // Now let's start the real parcin to get a proper dataStruct
     return dataStruct;//return the dataStruct to the main function
 };
 
