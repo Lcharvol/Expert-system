@@ -7,6 +7,5 @@ const dataStruct = parser();
 
 // Then check the file is right formated. Errors will be displayed in the other hand.
 validation(dataStruct);
-
 // If everything went smoothly, let's try to solve this.
 solver(dataStruct);

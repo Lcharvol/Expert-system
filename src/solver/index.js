@@ -6,7 +6,7 @@ import { getSolutionColor } from '../utils';
 
 const util = require('util')
 
-const printSolition = dataStruct => {
+const printSolution = dataStruct => {
     map(querie => {
         const value = dataStruct.initialFacts[querie];
         print(`The querie ${querie} is ${value}`, getSolutionColor(value))
@@ -14,8 +14,8 @@ const printSolition = dataStruct => {
 };
 
 const solver = dataStruct => {
-    print('Solver start', FgGreen)
-    printSolition(dataStruct);
+    print('\nInput file is right formated!\n', FgGreen)
+    printSolution(dataStruct);
     //console.log(util.inspect(dataStruct, false, null));
 }
 

@@ -11,3 +11,7 @@ export const RULE_FORMAT_ERROR = 'Error: wrong rules format : "';
 export const QUERIES_FORMAT_EXIT = 'Error: wrong queries format : "';
 
 export const QUERIES_NOT_DEFINED_EXIT = ['Error: querie', ' doesn\'t exist'];
+
+export const READ_ERROR = ['Cannot read ', ' file!'];
+
+export const INITIAL_FACTS_FORMAT_EXIT = 'Error: wrong initialFacts format : "';

@@ -1,4 +1,9 @@
-import { map, filter, isEmpty } from 'ramda';
+import {
+    map,
+    filter,
+    isEmpty,
+    split,
+} from 'ramda';
 import fs from 'fs';
 
 import { FgRed, FgGreen } from '../constants/colors';
@@ -8,8 +13,10 @@ import { isLineQueries, setQueries } from './queries';
 import { areQueriesDefined } from './queries/format';
 import { setRule } from './rules';
 import { readExit, argsLengthExit, queriesNotDefinedExit } from '../exit';
-import { removeComment, removeSpace } from '../utils';
 import print from '../print';
+import { removeComment, removeSpace } from '../utils';
+
+const cleanInputLine = line => removeSpace(removeComment(line));
 
 const checkArgsLength = args => args.length !== 3 && argsLengthExit();
 
@@ -22,11 +29,9 @@ const readFile = inputFileName => {
     };
 }
 
-const clean = line => removeSpace(removeComment(line));
-
 const getCleanedInput = fileContent => {
-    let lines = fileContent.split('\n');// Split every line of the text file into an array.
-    lines = filter(line => line.length > 0, map(clean, lines)); // Clean every line and remove empty one.
+    let lines = split('\n', fileContent);// Split every line of the text file into an array.
+    lines = filter(line => line.length > 0, map(cleanInputLine, lines)); // Clean every line and remove empty one.
     return lines; // Return cleaned line.
 }
 
@@ -49,13 +54,20 @@ const finalCheck = dataStruct => {
 }
 
 const parser = () => {
-    const args = process.argv; // Get args from process global object.
-    checkArgsLength(args); // Check if we got only one argument.
-    const inputFileName = args[2]; // Get the fileName inpute.
-    const fileContent = getCleanedInput(readFile(inputFileName)); // Read the file and format it in an array without all spaces and commented text.
-    const dataStruct = getFormatedDataStruct(initialDataStruct, fileContent); // Now let's start the real parcin to get a proper dataStruct
-    finalCheck(dataStruct); // Final check for existing queries
-    return dataStruct;//return the dataStruct to the main function
+    // Get args from process global object.
+    const args = process.argv;
+    // Check if we got only one argument.
+    checkArgsLength(args);
+     // Get the fileName inpute.
+    const inputFileName = args[2];
+    // Read the file and format it in an array without all spaces and commented text.
+    const fileContent = getCleanedInput(readFile(inputFileName));
+    // Now let's start the real parcin to get a proper dataStruct
+    const dataStruct = getFormatedDataStruct(initialDataStruct, fileContent);
+    // Final check for existing queries
+    finalCheck(dataStruct);
+    //return the dataStruct to the main function
+    return dataStruct;
 };
 
 export default parser; // Export the main function
