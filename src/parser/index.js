@@ -17,6 +17,7 @@ import { setRule } from './rules';
 import { readExit, argsLengthExit, queriesNotDefinedExit } from '../exit';
 import print from '../print';
 import { removeComment, removeSpace } from '../utils';
+import { checkbrackets } from './brackets';
 
 const cleanInputLine = line => removeSpace(removeComment(line));
 
@@ -49,9 +50,6 @@ const getFormatedDataStruct = (initialDataStruct, fileContent) => {
             initialDataStruct.rules = setRule(initialDataStruct.rules, line, index);
     });
     return initialDataStruct;
-};
-
-export const checkbrackets = () => {
 };
 
 const finalCheck = dataStruct => {
