@@ -2,6 +2,6 @@
 
 export const initialDataStruct = {
     rules: {},
-    initialFacts: {},
+    store: {},
     queries: [],
 };

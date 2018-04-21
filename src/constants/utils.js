@@ -1,0 +1,1 @@
+export const RIGHT_ARGS_LENGTH = 3;

@@ -7,6 +7,8 @@ import { FgRed } from '../../constants/colors';
 import { RIGHT_BRACKET, LEFT_BRACKET } from '../../constants/symbols';
 import { formatExit } from '../../exit';
 
+// Here is some checking function
+
 const isCorrectAferAlpha =  anyPass([isNil, isAnOperator, isABracket, isANot, equals(LEFT_BRACKET)]);
 
 const isCorrectAfterOperator = anyPass([isCapitalizAlpha, isANot, equals(RIGHT_BRACKET)]);

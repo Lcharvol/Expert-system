@@ -43,6 +43,6 @@ export const setRule = (rules, line, lineIndex) => ({
         },
         rightSide: {
             line: getRuleRightSideLine(line)
-        }
+        },
     },
 });

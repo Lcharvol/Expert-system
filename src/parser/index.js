@@ -7,6 +7,8 @@ import {
 import fs from 'fs';
 
 import { FgRed, FgGreen } from '../constants/colors';
+import { RIGHT_ARGS_LENGTH } from '../constants/utils';
+import { BS } from '../constants/symbols'
 import { initialDataStruct } from '../initialDataStruct';
 import { isLineInitialFacts, setInitialFacts } from './InitialFacts';
 import { isLineQueries, setQueries } from './queries';
@@ -18,7 +20,7 @@ import { removeComment, removeSpace } from '../utils';
 
 const cleanInputLine = line => removeSpace(removeComment(line));
 
-const checkArgsLength = args => args.length !== 3 && argsLengthExit();
+const checkArgsLength = args => args.length !== RIGHT_ARGS_LENGTH && argsLengthExit();
 
 const readFile = inputFileName => {
     try {
@@ -30,8 +32,8 @@ const readFile = inputFileName => {
 }
 
 const getCleanedInput = fileContent => {
-    let lines = split('\n', fileContent);// Split every line of the text file into an array.
-    lines = filter(line => line.length > 0, map(cleanInputLine, lines)); // Clean every line and remove empty one.
+    let lines = split(BS, fileContent);// Split every line of the text file into an array.
+    lines = filter(line => line.length, map(cleanInputLine, lines)); // Clean every line and remove empty one.
     return lines; // Return cleaned line.
 }
 
@@ -40,7 +42,7 @@ const getFormatedDataStruct = (initialDataStruct, fileContent) => {
     fileContent.map((line, index) => {
         // Check if the line is initialFacts, queries or rules
         if(isLineInitialFacts(line))
-            initialDataStruct.initialFacts = setInitialFacts(initialDataStruct.initialFacts, line, fileContent);
+            initialDataStruct.store = setInitialFacts(initialDataStruct.store, line, fileContent);
         else if(isLineQueries(line))
             initialDataStruct.queries = setQueries(initialDataStruct.queries, line);
         else if(!isEmpty(line))
@@ -49,8 +51,12 @@ const getFormatedDataStruct = (initialDataStruct, fileContent) => {
     return initialDataStruct;
 };
 
+export const checkbrackets = () => {
+};
+
 const finalCheck = dataStruct => {
     areQueriesDefined(dataStruct);
+    checkbrackets(dataStruct);
 }
 
 const parser = () => {
