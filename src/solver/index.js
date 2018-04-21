@@ -16,6 +16,9 @@ const printSolution = dataStruct => {
 
 const solver = dataStruct => {
     debugStore(dataStruct);
+    debugStore(dataStruct);
+    debugStore(dataStruct);
+    debugStore(dataStruct);
     print('\nInput file is right formated!\n', FgGreen)
     printSolution(dataStruct);
     // console.log(util.inspect(dataStruct, false, null));
