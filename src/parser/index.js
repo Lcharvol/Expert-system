@@ -59,9 +59,9 @@ const finalCheck = dataStruct => {
     checkbrackets(dataStruct);
 }
 
-const parser = () => {
-    // Get args from process global object.
-    const args = process.argv;
+const parser = settings => {
+    // Get args from settings.
+    const { args } = settings;
     // Check if we got only one argument.
     checkArgsLength(args);
      // Get the fileName inpute.

@@ -14,12 +14,15 @@ const printSolution = dataStruct => {
     },dataStruct.queries)
 };
 
+const start = dataStruct => {
+    print('Initial State: ')
+    debugStore(dataStruct);
+    return dataStruct;
+};
+
 const solver = dataStruct => {
-    debugStore(dataStruct);
-    debugStore(dataStruct);
-    debugStore(dataStruct);
-    debugStore(dataStruct);
-    print('\nInput file is right formated!\n', FgGreen)
+    print('\nInput file is right formated!\n', FgGreen);
+    dataStruct = start(dataStruct);
     printSolution(dataStruct);
     // console.log(util.inspect(dataStruct, false, null));
 }
