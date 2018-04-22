@@ -15,3 +15,5 @@ export const QUERIES_NOT_DEFINED_EXIT = ['Error: querie', ' doesn\'t exist'];
 export const READ_ERROR = ['Cannot read ', ' file!'];
 
 export const INITIAL_FACTS_FORMAT_EXIT = 'Error: wrong initialFacts format : "';
+
+export const BRACKETS_FORMAT_EXIT = 'Error: wrong formated parentheses : ';

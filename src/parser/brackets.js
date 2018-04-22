@@ -1,15 +1,17 @@
 import { map, equals, match, length } from 'ramda';
 
-const checkBracketNumber = side => equals(length(match(/\(/, '((((E+!F))))')), length(match('/\(/', '((((E+!F))))')));
+import { bracketsFormatExit } from '../exit';
+
+const checkBracketNumber = side => equals(length(match(/\(/g, side)), length(match(/\)/g, side)));
 
 const checkBracketsBySide = side => {
-    console.log(checkBracketNumber(side))
+    if(!checkBracketNumber(side)) bracketsFormatExit(side);
 };
 
 export const checkbrackets = dataStruct => {
     const { rules } = dataStruct;
     map(rule => {
-        checkBracketsBySide(rule.leftSide);
-        checkBracketsBySide(rule.rightSide);
+        checkBracketsBySide(rule.leftSide.line);
+        checkBracketsBySide(rule.rightSide.line);
     }, rules);
 };
