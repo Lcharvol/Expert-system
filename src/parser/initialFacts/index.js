@@ -1,11 +1,11 @@
-import { map, times } from 'ramda';
+import { map, times, isNil } from 'ramda';
 
 import { } from './format';
 import { LEFT_CHEV, EQUAL, INTERROGATION_POINT } from '../../constants/symbols';
 import { isCapitalizAlpha } from '../../utils';
 import { checkInitialFactsFormat } from './format';
 
-export const isLineInitialFacts = line => line[0] === EQUAL && (isCapitalizAlpha(line[1]) || isNill(line[1]));
+export const isLineInitialFacts = line => line[0] === EQUAL && (isCapitalizAlpha(line[1]) || isNil(line[1]));
 
 const getAllFacts = (initialFacts, fileContent) => {
     map(line => {
