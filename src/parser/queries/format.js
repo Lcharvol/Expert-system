@@ -6,10 +6,10 @@ import { queriesFormatExit, queriesNotDefinedExit } from '../../exit';
 export const checkQueriesFormat = line => map(c => !isCapitalizAlpha(c) && queriesFormatExit(line), drop(1, line));
 
 export const areQueriesDefined = dataStruct => {
-    const { store, queries } = dataStruct;
+    const { initialStore, queries } = dataStruct;
     let undefinedQueries = [];
     map(querie => {
-        if(!contains(querie, keys(store))) undefinedQueries = [...undefinedQueries, querie];
+        if(!contains(querie.name, keys(initialStore))) undefinedQueries = [...undefinedQueries, querie.name];
     },queries);
     if (!isEmpty(undefinedQueries)) queriesNotDefinedExit(undefinedQueries);
 }

@@ -18,6 +18,7 @@ import { readExit, argsLengthExit, queriesNotDefinedExit } from '../exit';
 import print from '../print';
 import { removeComment, removeSpace } from '../utils';
 import { checkbrackets } from './brackets';
+import { resetStore } from '../store';
 
 const cleanInputLine = line => removeSpace(removeComment(line));
 
@@ -43,7 +44,7 @@ const getFormatedDataStruct = (initialDataStruct, fileContent) => {
     fileContent.map((line, index) => {
         // Check if the line is initialFacts, queries or rules
         if(isLineInitialFacts(line))
-            initialDataStruct.store = setInitialFacts(initialDataStruct.store, line, fileContent);
+            initialDataStruct.initialStore = setInitialFacts(initialDataStruct.initialStore, line, fileContent);
         else if(isLineQueries(line))
             initialDataStruct.queries = setQueries(initialDataStruct.queries, line);
         else if(!isEmpty(line))
@@ -67,9 +68,10 @@ const parser = settings => {
     // Read the file and format it in an array without all spaces and commented text.
     const fileContent = getCleanedInput(readFile(inputFileName));
     // Now let's start the real parcin to get a proper dataStruct
-    const dataStruct = getFormatedDataStruct(initialDataStruct, fileContent);
+    let dataStruct = getFormatedDataStruct(initialDataStruct, fileContent);
     // Final check for existing queries
     finalCheck(dataStruct);
+    dataStruct = resetStore(dataStruct);
     //return the dataStruct to the main function
     return dataStruct;
 };

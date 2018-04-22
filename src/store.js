@@ -1,0 +1,1 @@
+export const resetStore = dataStruct => ({...dataStruct, store: dataStruct.initialStore });

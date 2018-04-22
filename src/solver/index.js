@@ -9,8 +9,9 @@ const util = require('util')
 
 const printSolution = dataStruct => {
     map(querie => {
+        const { name, valie} = querie;
         const value = dataStruct.store[querie];
-        print(`The querie ${querie} is ${value}`, getSolutionColor(value))
+        print(`The querie ${name} is ${value}`, getSolutionColor(value))
     },dataStruct.queries)
 };
 
