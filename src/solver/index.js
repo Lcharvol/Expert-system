@@ -8,16 +8,30 @@ import { debugStore } from '../logs';
 const util = require('util')
 
 const printSolution = dataStruct => {
+    const { store } = dataStruct;
     map(querie => {
-        const { name, valie} = querie;
-        const value = dataStruct.store[querie];
-        print(`The querie ${name} is ${value}`, getSolutionColor(value))
+        const { name } = querie;
+        const value = store[name];
+        print(` The querie ${name} is ${value}`, getSolutionColor(value))
     },dataStruct.queries)
 };
 
+const isInitialFactsContainQuerie = (name, store) => store[name];
+
+const eachQuerie = (querie, dataStruct) => {
+    const { store } = dataStruct;
+    const { name } = querie;
+    debugStore(dataStruct);
+    if(isInitialFactsContainQuerie(name, store)) return dataStruct;
+    return dataStruct;
+};
+
 const start = dataStruct => {
+    const { queries } = dataStruct;
+    console.log('dataStruct: ', dataStruct)
     print('Initial State: ')
     debugStore(dataStruct);
+    map(querie => dataStruct = eachQuerie(querie, dataStruct),queries)
     return dataStruct;
 };
 

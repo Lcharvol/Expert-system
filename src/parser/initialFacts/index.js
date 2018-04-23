@@ -12,7 +12,7 @@ const getAllFacts = (initialFacts, fileContent) => {
         if(line[0] === INTERROGATION_POINT) return;
         map(char => {
             if(isCapitalizAlpha(char)) {
-                initialFacts = {...initialFacts, [char]: false}
+                initialFacts = {...initialFacts, [char]: undefined}
             }
         },line)
     }, fileContent)
