@@ -14,6 +14,7 @@ import { isLineInitialFacts, setInitialFacts } from './InitialFacts';
 import { isLineQueries, setQueries } from './queries';
 import { areQueriesDefined } from './queries/format';
 import { setRule } from './rules';
+import { getTranslatedRule } from './rules/translation';
 import { readExit, argsLengthExit, queriesNotDefinedExit } from '../exit';
 import print from '../print';
 import { removeComment, removeSpace } from '../utils';
@@ -58,6 +59,14 @@ const finalCheck = dataStruct => {
     checkbrackets(dataStruct);
 }
 
+const translateLines = dataStruct => {
+    dataStruct.rules = map(rule => ({
+        ...rule,
+        translatedRule: getTranslatedRule(rule),
+    }),dataStruct.rules);
+    return dataStruct;
+}
+
 const parser = settings => {
     // Get args from settings.
     const { args } = settings;
@@ -71,8 +80,9 @@ const parser = settings => {
     let dataStruct = getFormatedDataStruct(initialDataStruct, fileContent);
     // Final check for existing queries
     finalCheck(dataStruct);
-    dataStruct = resetStore(dataStruct);
+    dataStruct = resetStore(translateLines(dataStruct));
     //return the dataStruct to the main function
+    console.log(dataStruct)
     return dataStruct;
 };
 

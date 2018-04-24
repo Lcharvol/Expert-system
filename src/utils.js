@@ -8,7 +8,6 @@ import {
     match,
 } from 'ramda';
 import { NOT, AND, OR, XOR, RIGHT_BRACKET, LEFT_BRACKET } from './constants/symbols';
-import { FgRed, FgGreen, FgWhite } from './constants/colors';
 
 export const isABracket = c => c === LEFT_BRACKET || c === RIGHT_BRACKET;
 
@@ -30,8 +29,3 @@ export const removeComment = str => {
 };
 
 export const addSpaces = str => join(' ', split('', str));
-
-export const getSolutionColor = value => {
-    if (value === undefined) return FgWhite;
-    return value ? FgGreen : FgRed
-};

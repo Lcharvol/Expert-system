@@ -1,4 +1,9 @@
-import { times, anyPass, isNil, equals } from 'ramda';
+import {
+    times,
+    anyPass,
+    isNil,
+    equals,
+} from 'ramda';
 
 import print from '../../print';
 import { isCapitalizAlpha, isAnOperator, isABracket, isANot } from '../../utils';
