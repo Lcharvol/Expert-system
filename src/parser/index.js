@@ -82,7 +82,6 @@ const parser = settings => {
     finalCheck(dataStruct);
     dataStruct = resetStore(translateLines(dataStruct));
     //return the dataStruct to the main function
-    console.log(dataStruct)
     return dataStruct;
 };
 

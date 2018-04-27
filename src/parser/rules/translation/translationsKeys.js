@@ -9,6 +9,4 @@ const translationKeys = [
     },
 ];
 
-// XOR a XOR B : (A&&!B)||(!A&&B)
-
 export default translationKeys;
