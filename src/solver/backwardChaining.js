@@ -29,12 +29,15 @@ const forEachAffectedRule = (affectedRules, dataStruct) => {
         let { translatedRule: { translatedLefttSide, translatedRightSide }} = rule;
         while(eval(getUsableRule(translatedLefttSide)) === undefined) {
             let unknowVar = getUnknowVar(translatedLefttSide, dataStruct.store);
-            console.log('unknowVar: ', unknowVar)
             map(v => {
-                dataStruct = backwardChaining(v, dataStruct);
+                dataStruct = backwardChaining({ name: v }, dataStruct);
             }, unknowVar);
         };
-        if(!eval(getUsableRule(translatedLefttSide))) return dataStruct;
+        if(!eval(getUsableRule(translatedLefttSide))) {
+            dataStruct.store[translatedRightSide] = false;
+            return dataStruct;
+        }
+        dataStruct.store[translatedRightSide] = true;
     }, affectedRules)
     return dataStruct;
 };

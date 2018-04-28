@@ -1,6 +1,7 @@
-A+B=>C
-D+E=>F
-G+H=>I
-J+K=>L
-=ABDH
-?CFIL
+F=>E
+E=>D
+D=>C
+C=>B
+!B=>A
+=F
+?A
