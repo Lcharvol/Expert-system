@@ -9,7 +9,7 @@ export const areQueriesDefined = dataStruct => {
     const { initialStore, queries } = dataStruct;
     let undefinedQueries = [];
     map(querie => {
-        if(!contains(querie.name, keys(initialStore))) undefinedQueries = [...undefinedQueries, querie.name];
+        if(!contains(querie, keys(initialStore))) undefinedQueries = [...undefinedQueries, querie];
     },queries);
     if (!isEmpty(undefinedQueries)) queriesNotDefinedExit(undefinedQueries);
 }

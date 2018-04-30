@@ -20,8 +20,7 @@ const getSolutionColor = value => {
 export const printSolution = dataStruct => {
     const { store } = dataStruct;
     map(querie => {
-        const { name } = querie;
-        const value = store[name];
-        print(`     The querie ${name} is ${value}\n`, getSolutionColor(value))
+        const value = store[querie];
+        print(`\n    The querie ${querie} is ${value}\n`, getSolutionColor(value))
     },dataStruct.queries)
 };

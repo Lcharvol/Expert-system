@@ -8,8 +8,7 @@ const getAffectedRules = (querie, rules) => {
     let affectedRules = [];
     map(rule => {
         const { rightSide, leftSide, type } = rule;
-        const { name } = querie;
-        if((contains(name, rightSide.line) && type === IMPLIES) || (contains(name, leftSide.line) && type === IF_AND_ONLY_IF))
+        if((contains(querie, rightSide.line) && type === IMPLIES) || (contains(querie, leftSide.line) && type === IF_AND_ONLY_IF))
             affectedRules = [...affectedRules, rule];
     } ,rules)
     return affectedRules;
@@ -30,7 +29,7 @@ const forEachAffectedRule = (affectedRules, dataStruct) => {
         while(eval(getUsableRule(translatedLefttSide)) === undefined) {
             let unknowVar = getUnknowVar(translatedLefttSide, dataStruct.store);
             map(v => {
-                dataStruct = backwardChaining({ name: v }, dataStruct);
+                dataStruct = backwardChaining(v, dataStruct);
             }, unknowVar);
         };
         if(!eval(getUsableRule(translatedLefttSide))) {
@@ -45,7 +44,7 @@ const forEachAffectedRule = (affectedRules, dataStruct) => {
 const backwardChaining = (querie, dataStruct) => {
     const { rules, store } = dataStruct;
     const affectedRules = getAffectedRules(querie, rules);
-    while(store[querie] !== true) {
+    while(!store[querie]) {
         let initialStore = dataStruct.store;
         dataStruct = forEachAffectedRule(affectedRules, dataStruct)
         if(dataStruct.store === initialStore) return dataStruct;
