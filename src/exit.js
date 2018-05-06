@@ -10,6 +10,7 @@ import {
     INITIAL_FACTS_FORMAT_EXIT,
     READ_ERROR,
     BRACKETS_FORMAT_EXIT,
+    INITIAL_FACTS_NOT_DEFINED_EXIT,
 } from './constants/errors';
 import { FgRed } from './constants/colors';
 import { addSpaces } from './utils';
@@ -39,6 +40,11 @@ export const queriesNotDefinedExit = queries => {
     print(`${QUERIES_NOT_DEFINED_EXIT[0]}${formatedQueries.length > 1 ? 's ': ' '}${formatedQueries}${QUERIES_NOT_DEFINED_EXIT[1]}"`, FgRed);
     process.exit();
 };
+
+export const initialFactsNotDefinedExit = () => {
+    print(INITIAL_FACTS_NOT_DEFINED_EXIT, FgRed);
+    process.exit();
+}
 
 export const initialFactsFormatExit = str => {
     print(`${INITIAL_FACTS_FORMAT_EXIT}${str}"`, FgRed);

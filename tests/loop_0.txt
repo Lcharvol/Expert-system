@@ -1,0 +1,7 @@
+A=>C
+C=>D
+D=>A
+=B
+?A
+
+# A should be undefined

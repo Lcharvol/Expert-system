@@ -1,0 +1,11 @@
+A=>B
+B=>C
+C=>D
+D=>A
+!E=>B
+
+=E
+
+?A
+
+# A should be false

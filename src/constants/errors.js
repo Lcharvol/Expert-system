@@ -17,3 +17,5 @@ export const READ_ERROR = ['Cannot read ', ' file!'];
 export const INITIAL_FACTS_FORMAT_EXIT = 'Error: wrong initialFacts format : "';
 
 export const BRACKETS_FORMAT_EXIT = 'Error: wrong formated parentheses : ';
+
+export const INITIAL_FACTS_NOT_DEFINED_EXIT = 'Error: initialFacts are not defined';

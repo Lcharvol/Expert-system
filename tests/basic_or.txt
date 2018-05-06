@@ -1,0 +1,10 @@
+A|B=>C
+D|E=>F
+G|H=>I
+J|K=>L
+
+=ABDH
+
+?CFIL
+
+# C, F and I should be True, L undefined

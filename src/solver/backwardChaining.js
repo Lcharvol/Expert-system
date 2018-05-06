@@ -34,7 +34,7 @@ const forEachAffectedRule = (affectedRules, dataStruct, querie) => {
             if(equals(unknowVar, lastUnknowVar)) return dataStruct;
             lastUnknowVar = unknowVar;
             map(v => {
-                if(contains(v, dataStruct.outVar)) return dataStruct;
+                if(contains(v, dataStruct.outVar)) return v;
                 dataStruct.outVar = [...dataStruct.outVar, v];
                 dataStruct = backwardChaining(v, dataStruct);
             }, unknowVar);

@@ -1,0 +1,10 @@
+A=>B
+B=>C
+C=>A
+E=>B
+
+=E
+
+?A
+
+# A should be True

@@ -13,6 +13,7 @@ import { initialDataStruct } from '../initialDataStruct';
 import { isLineInitialFacts, setInitialFacts } from './InitialFacts';
 import { isLineQueries, setQueries } from './queries';
 import { areQueriesDefined } from './queries/format';
+import { areInitialFactsDefined } from './initialFacts/format';
 import { setRule } from './rules';
 import { getTranslatedRule } from './rules/translation';
 import { readExit, argsLengthExit, queriesNotDefinedExit } from '../exit';
@@ -56,6 +57,7 @@ const getFormatedDataStruct = (initialDataStruct, fileContent) => {
 };
 
 const finalCheck = dataStruct => {
+    areInitialFactsDefined(dataStruct);
     areQueriesDefined(dataStruct);
     checkbrackets(dataStruct);
 }

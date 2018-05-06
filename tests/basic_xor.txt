@@ -1,0 +1,10 @@
+A^B=>C
+D^E=>F
+G^H=>I
+J^K=>L
+
+=ABDH
+
+?CFIL
+
+# C should be False, F and I True

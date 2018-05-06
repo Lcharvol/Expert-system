@@ -1,0 +1,7 @@
+A=>B
+
+=A
+
+?B
+
+# B should be True
