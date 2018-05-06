@@ -51,6 +51,7 @@ const getFormatedDataStruct = (initialDataStruct, fileContent) => {
         else if(!isEmpty(line))
             initialDataStruct.rules = setRule(initialDataStruct.rules, line, index);
     });
+    initialDataStruct.outVar = [];
     return initialDataStruct;
 };
 
