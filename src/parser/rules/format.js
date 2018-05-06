@@ -14,9 +14,9 @@ import { formatExit } from '../../exit';
 
 // Here is some checking function
 
-const isCorrectAferAlpha =  anyPass([isNil, isAnOperator, isABracket, isANot, equals(LEFT_BRACKET)]);
+const isCorrectAferAlpha =  anyPass([isNil, isAnOperator, isABracket, isANot, equals(RIGHT_BRACKET)]);
 
-const isCorrectAfterOperator = anyPass([isCapitalizAlpha, isANot, equals(RIGHT_BRACKET)]);
+const isCorrectAfterOperator = anyPass([isCapitalizAlpha, isANot, equals(LEFT_BRACKET)]);
 
 const isCorrectAfterANot = anyPass([isCapitalizAlpha, equals(LEFT_BRACKET)]);
 

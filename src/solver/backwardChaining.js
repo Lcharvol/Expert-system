@@ -1,8 +1,9 @@
-import { contains, map, isNil } from 'ramda';
+import { contains, map, isNil, isEmpty, equals } from 'ramda';
 
 import { IMPLIES, IF_AND_ONLY_IF } from '../constants/symbols';
 import { replaceVariableByValue } from './utils';
 import { isCapitalizAlpha } from '../utils';
+import { debugStore } from '../logs';
 
 const getAffectedRules = (querie, rules) => {
     let affectedRules = [];
@@ -22,12 +23,16 @@ const getUnknowVar = (str, store) => {
     return unknowVar;
 }
 
-const forEachAffectedRule = (affectedRules, dataStruct) => {
+const forEachAffectedRule = (affectedRules, dataStruct, querie) => {
     const getUsableRule = str => replaceVariableByValue(str, dataStruct.store);
+    let lastUnknowVar = undefined;
     map(rule => {
         let { translatedRule: { translatedLefttSide, translatedRightSide }} = rule;
+        if(dataStruct.store[querie]) return dataStruct;
         while(eval(getUsableRule(translatedLefttSide)) === undefined) {
             let unknowVar = getUnknowVar(translatedLefttSide, dataStruct.store);
+            if(equals(unknowVar, lastUnknowVar)) return dataStruct;
+            lastUnknowVar = unknowVar;
             map(v => {
                 dataStruct = backwardChaining(v, dataStruct);
             }, unknowVar);
@@ -44,9 +49,10 @@ const forEachAffectedRule = (affectedRules, dataStruct) => {
 const backwardChaining = (querie, dataStruct) => {
     const { rules, store } = dataStruct;
     const affectedRules = getAffectedRules(querie, rules);
-    while(!store[querie]) {
+    if(isEmpty(affectedRules)) return dataStruct;
+    while(!dataStruct.store[querie]) {
         let initialStore = dataStruct.store;
-        dataStruct = forEachAffectedRule(affectedRules, dataStruct)
+        dataStruct = forEachAffectedRule(affectedRules, dataStruct, querie)
         if(dataStruct.store === initialStore) return dataStruct;
     }
     return dataStruct;
