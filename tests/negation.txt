@@ -1,0 +1,7 @@
+B + !C => A 
+
+=B
+
+?A 
+
+# A should  be True
