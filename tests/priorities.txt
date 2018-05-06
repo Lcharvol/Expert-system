@@ -1,0 +1,10 @@
+
+C|B+A=>D 
+E^F|G=>H 
+I^J+K=>L 
+
+=CEGIJ
+
+?DHL
+
+# D and H should be True, L false
