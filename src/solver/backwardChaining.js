@@ -47,7 +47,6 @@ const forEachAffectedRule = (affectedRules, dataStruct, querie) => {
         let { translatedRule: { translatedLefttSide, translatedRightSide }} = rule;
         let unknowVar = getUnknowVar(translatedLefttSide, dataStruct.store);
         while(length(unknowVar)) {
-            console.log('unknowVar: ', unknowVar)
             if(equals(unknowVar, lastUnknowVar)) return dataStruct;
             lastUnknowVar = unknowVar;
             map(v => {
@@ -58,9 +57,7 @@ const forEachAffectedRule = (affectedRules, dataStruct, querie) => {
             }, unknowVar);
         };
         const result = eval(getUsableRule(translatedLefttSide));
-        if(result === false) {
-            return dataStruct;
-        };
+        if(!result) return dataStruct;
         if(isASimpleConclusion(translatedRightSide)) {
             const haveANeg = length(match(/!/g, translatedRightSide)) > 0;
             dataStruct.store[translatedRightSide] = haveANeg ? !result : result;
@@ -69,7 +66,6 @@ const forEachAffectedRule = (affectedRules, dataStruct, querie) => {
         } else {
 
         };
-        dataStruct.store[translatedRightSide] = true;
     }, affectedRules)
     return dataStruct;
 };
