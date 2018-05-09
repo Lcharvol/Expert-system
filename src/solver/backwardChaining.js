@@ -1,4 +1,13 @@
-import { contains, map, isNil, isEmpty, equals } from 'ramda';
+import {
+    contains,
+    map,
+    isNil,
+    isEmpty,
+    equals,
+    match,
+    length,
+    is,
+} from 'ramda';
 
 import { IMPLIES, IF_AND_ONLY_IF } from '../constants/symbols';
 import { replaceVariableByValue } from './utils';
@@ -23,6 +32,12 @@ const getUnknowVar = (str, store) => {
     return unknowVar;
 }
 
+const isAComplexConclusion = () => {
+    return false;
+};
+
+const isASimpleConclusion = str => length(str) <= 2;
+
 const forEachAffectedRule = (affectedRules, dataStruct, querie) => {
     const getUsableRule = str => replaceVariableByValue(str, dataStruct.store);
     let lastUnknowVar = undefined;
@@ -39,10 +54,20 @@ const forEachAffectedRule = (affectedRules, dataStruct, querie) => {
                 dataStruct = backwardChaining(v, dataStruct);
             }, unknowVar);
         };
-        if(!eval(getUsableRule(translatedLefttSide))) {
+        const result = eval(getUsableRule(translatedLefttSide));
+        if(isASimpleConclusion(translatedRightSide)) {
+            const haveANeg = length(match(/!/g, translatedRightSide)) > 0;
+            console.log('haveANeg: ', haveANeg);
+            dataStruct.store[translatedRightSide] = haveANeg ? !result : result;
+        } else if(isAComplexConclusion()) {
+
+        } else {
+
+        };
+        if(!result) {
             dataStruct.store[translatedRightSide] = false;
             return dataStruct;
-        }
+        };
         dataStruct.store[translatedRightSide] = true;
     }, affectedRules)
     return dataStruct;
