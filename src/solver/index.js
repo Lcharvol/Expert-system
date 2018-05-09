@@ -10,7 +10,7 @@ const isInitialFactsContainQuerie = (name, store) => store[name];
 
 const eachQuerie = (querie, dataStruct) => {
     const { store } = dataStruct;
-    if(isInitialFactsContainQuerie(querie, store) || store[querie]) return dataStruct;
+    if(store[querie]) return dataStruct;
     dataStruct = backwardChaining(querie, dataStruct);
     return dataStruct;
 };

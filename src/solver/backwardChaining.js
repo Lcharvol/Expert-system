@@ -7,6 +7,7 @@ import {
     match,
     length,
     is,
+    without,
 } from 'ramda';
 
 import { IMPLIES, IF_AND_ONLY_IF } from '../constants/symbols';
@@ -32,7 +33,8 @@ const getUnknowVar = (str, store) => {
     return unknowVar;
 }
 
-const isAComplexConclusion = () => {
+const isAComplexConclusion = str => {
+    console.log('str: ', str);
     return false;
 };
 
@@ -43,30 +45,29 @@ const forEachAffectedRule = (affectedRules, dataStruct, querie) => {
     let lastUnknowVar = undefined;
     map(rule => {
         let { translatedRule: { translatedLefttSide, translatedRightSide }} = rule;
-        if(dataStruct.store[querie]) return dataStruct;
-        while(eval(getUsableRule(translatedLefttSide)) === undefined) {
-            let unknowVar = getUnknowVar(translatedLefttSide, dataStruct.store);
+        let unknowVar = getUnknowVar(translatedLefttSide, dataStruct.store);
+        while(length(unknowVar)) {
+            console.log('unknowVar: ', unknowVar)
             if(equals(unknowVar, lastUnknowVar)) return dataStruct;
             lastUnknowVar = unknowVar;
             map(v => {
                 if(contains(v, dataStruct.outVar)) return v;
                 dataStruct.outVar = [...dataStruct.outVar, v];
                 dataStruct = backwardChaining(v, dataStruct);
+                unknowVar = without(v, unknowVar);
             }, unknowVar);
         };
         const result = eval(getUsableRule(translatedLefttSide));
+        if(result === false) {
+            return dataStruct;
+        };
         if(isASimpleConclusion(translatedRightSide)) {
             const haveANeg = length(match(/!/g, translatedRightSide)) > 0;
-            console.log('haveANeg: ', haveANeg);
             dataStruct.store[translatedRightSide] = haveANeg ? !result : result;
-        } else if(isAComplexConclusion()) {
+        } else if(isAComplexConclusion(translatedRightSide)) {
 
         } else {
 
-        };
-        if(!result) {
-            dataStruct.store[translatedRightSide] = false;
-            return dataStruct;
         };
         dataStruct.store[translatedRightSide] = true;
     }, affectedRules)
