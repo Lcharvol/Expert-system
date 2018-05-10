@@ -1,7 +1,8 @@
-A=>C
-C=>D
-D=>A
+B=>A
+B=>!A
+
 =B
+
 ?A
 
 # A should be False

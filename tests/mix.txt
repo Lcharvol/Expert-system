@@ -9,4 +9,4 @@ T + !X => G
 
 ?GTX
 
-# G and T should be True
+#T should be True

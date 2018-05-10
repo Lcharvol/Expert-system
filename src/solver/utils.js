@@ -21,7 +21,6 @@ export const printSolution = dataStruct => {
     const { store } = dataStruct;
     map(querie => {
         let value = store[querie];
-        if (value === undefined) value = false;
         print(`\n    The querie ${querie} is ${value}\n`, getSolutionColor(value))
     },dataStruct.queries)
 };

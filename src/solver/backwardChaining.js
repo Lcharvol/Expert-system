@@ -8,6 +8,8 @@ import {
     length,
     is,
     without,
+    uniq,
+    find,
 } from 'ramda';
 
 import { IMPLIES, IF_AND_ONLY_IF } from '../constants/symbols';
@@ -25,12 +27,13 @@ const getAffectedRules = (querie, rules) => {
     return affectedRules;
 };
 
-const getUnknowVar = (str, store) => {
+const getUnknowVar = (str, dataStruct) => {
+    const { outVar } = dataStruct;
     let unknowVar = [];
     map(c => {
-        if (isCapitalizAlpha(c) && isNil(store[c])) unknowVar = [c, ...unknowVar];
+        if (isCapitalizAlpha(c) && !contains(c, outVar)) unknowVar = [...unknowVar, c];
     }, str)
-    return unknowVar;
+    return uniq(unknowVar);
 }
 
 const isAComplexConclusion = str => {
@@ -45,7 +48,7 @@ const forEachAffectedRule = (affectedRules, dataStruct, querie) => {
     let lastUnknowVar = undefined;
     map(rule => {
         let { translatedRule: { translatedLefttSide, translatedRightSide }} = rule;
-        let unknowVar = getUnknowVar(translatedLefttSide, dataStruct.store);
+        let unknowVar = getUnknowVar(translatedLefttSide, dataStruct);
         while(length(unknowVar)) {
             if(equals(unknowVar, lastUnknowVar)) return dataStruct;
             lastUnknowVar = unknowVar;
@@ -60,7 +63,10 @@ const forEachAffectedRule = (affectedRules, dataStruct, querie) => {
         if(!result) return dataStruct;
         if(isASimpleConclusion(translatedRightSide)) {
             const haveANeg = length(match(/!/g, translatedRightSide)) > 0;
-            dataStruct.store[translatedRightSide] = haveANeg ? !result : result;
+            const conclusionQuerie = find(isCapitalizAlpha, translatedRightSide);
+            if(equals(dataStruct.store[conclusionQuerie], true) && haveANeg)
+                dataStruct.store[conclusionQuerie] = undefined
+            else dataStruct.store[conclusionQuerie] = !haveANeg;
         } else if(isAComplexConclusion(translatedRightSide)) {
 
         } else {
@@ -73,11 +79,10 @@ const forEachAffectedRule = (affectedRules, dataStruct, querie) => {
 const backwardChaining = (querie, dataStruct) => {
     const { rules, store } = dataStruct;
     const affectedRules = getAffectedRules(querie, rules);
-    if(isEmpty(affectedRules)) return dataStruct;
     while(!dataStruct.store[querie]) {
         let initialStore = dataStruct.store;
         dataStruct = forEachAffectedRule(affectedRules, dataStruct, querie)
-        if(dataStruct.store === initialStore) return dataStruct;
+        if(equals(dataStruct.store, initialStore)) return dataStruct;
     }
     return dataStruct;
 };
