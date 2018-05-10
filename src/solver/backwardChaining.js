@@ -13,8 +13,14 @@ import {
 } from 'ramda';
 
 import { IMPLIES, IF_AND_ONLY_IF } from '../constants/symbols';
-import { replaceVariableByValue } from './utils';
-import { isCapitalizAlpha } from '../utils';
+import {
+    replaceVariableByValue,
+    isAComplexConclusion,
+    isASimpleConclusion,
+} from './utils';
+import {
+    isCapitalizAlpha,
+} from '../utils';
 import { debugStore } from '../logs';
 
 const getAffectedRules = (querie, rules) => {
@@ -34,20 +40,21 @@ const getUnknowVar = (str, dataStruct) => {
         if (isCapitalizAlpha(c) && !contains(c, outVar)) unknowVar = [...unknowVar, c];
     }, str)
     return uniq(unknowVar);
-}
-
-const isAComplexConclusion = str => {
-    console.log('str: ', str);
-    return false;
 };
 
-const isASimpleConclusion = str => length(str) <= 2;
+const getConlusionQueries = str => {
+    let queries = [];
+    map(c => {
+        if(isCapitalizAlpha(c)) queries = [...queries, c];
+    },str);
+    return queries;
+};
 
 const forEachAffectedRule = (affectedRules, dataStruct, querie) => {
     const getUsableRule = str => replaceVariableByValue(str, dataStruct.store);
     let lastUnknowVar = undefined;
     map(rule => {
-        let { translatedRule: { translatedLefttSide, translatedRightSide }} = rule;
+        let { rightSide, translatedRule: { translatedLefttSide, translatedRightSide }} = rule;
         let unknowVar = getUnknowVar(translatedLefttSide, dataStruct);
         while(length(unknowVar)) {
             if(equals(unknowVar, lastUnknowVar)) return dataStruct;
@@ -67,8 +74,11 @@ const forEachAffectedRule = (affectedRules, dataStruct, querie) => {
             if(equals(dataStruct.store[conclusionQuerie], true) && haveANeg)
                 dataStruct.store[conclusionQuerie] = undefined
             else dataStruct.store[conclusionQuerie] = !haveANeg;
-        } else if(isAComplexConclusion(translatedRightSide)) {
-
+        } else if(isAComplexConclusion(rightSide.line)) {
+            const conclusionQueries = getConlusionQueries(rightSide.line);
+            map(q => {
+                dataStruct.store[q] = true;
+            },conclusionQueries)
         } else {
 
         };

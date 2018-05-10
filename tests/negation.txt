@@ -2,6 +2,6 @@ B => !C
 
 =B
 
-?A 
+?C
 
 # A should  be False
