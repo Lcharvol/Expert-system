@@ -4,4 +4,4 @@ A=>B
 
 ?B
 
-# B should be True
+# B should be False

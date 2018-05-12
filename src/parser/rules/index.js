@@ -30,7 +30,7 @@ const getRuleLeftSideLine = line => {
 const getRuleRightSideLine = line => {
     const rightSide = drop(indexOf(RIGHT_CHEV, line) + 1, line);
     if(rightSide.length === 0 || !checkRuleSideFormat(rightSide)) formatExit(rightSide);
-    if(indexOf(OR, rightSide) > 0|| indexOf(XOR, rightSide) > 0) conclusionFormatExit(rightSide);
+    if(indexOf(OR, rightSide) >= 0|| indexOf(XOR, rightSide) >= 0) conclusionFormatExit(rightSide);
     return rightSide;
 };
 

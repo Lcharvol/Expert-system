@@ -12,15 +12,14 @@ import {
     find,
 } from 'ramda';
 
-import { IMPLIES, IF_AND_ONLY_IF, NOT } from '../constants/symbols';
 import {
     replaceVariableByValue,
-    isAComplexConclusion,
     isASimpleConclusion,
 } from './utils';
 import {
     isCapitalizAlpha,
 } from '../utils';
+import { IMPLIES, IF_AND_ONLY_IF, NOT } from '../constants/symbols';
 import { debugStore } from '../logs';
 
 const getAffectedRules = (querie, rules) => {

@@ -1,6 +1,6 @@
 const initialSettings = {
     inputOptions: [],
-    suportedOptions: ['--debug'],
+    suportedOptions: [],
     aceptedOptions: [],
 };
 

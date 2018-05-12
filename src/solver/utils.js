@@ -6,8 +6,8 @@ import {
     match,
 } from 'ramda';
 
-import { FgRed, FgGreen, FgWhite } from '../constants/colors';
 import print from '../print';
+import { FgRed, FgGreen, FgWhite } from '../constants/colors';
 import { isCapitalizAlpha, haveOnlyAnd } from '../utils';
 
 export const replaceVariableByValue = (str, store) => {
@@ -29,11 +29,6 @@ export const printSolution = dataStruct => {
         let value = store[querie];
         print(`\n    The querie ${querie} is ${value}\n`, getSolutionColor(value))
     },dataStruct.queries)
-};
-
-export const isAComplexConclusion = str => {
-    const res = haveOnlyAnd(str);
-    return res;
 };
 
 export const isASimpleConclusion = str => length(str) <= 2;

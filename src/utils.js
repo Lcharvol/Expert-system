@@ -10,7 +10,14 @@ import {
     inc,
     equals,
 } from 'ramda';
-import { NOT, AND, OR, XOR, RIGHT_BRACKET, LEFT_BRACKET } from './constants/symbols';
+import {
+    NOT,
+    AND,
+    OR,
+    XOR,
+    RIGHT_BRACKET,
+    LEFT_BRACKET,
+} from './constants/symbols';
 
 export const isABracket = c => equals(c, LEFT_BRACKET) || equals(c, RIGHT_BRACKET);
 
