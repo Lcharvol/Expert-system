@@ -10,3 +10,5 @@ N => M
 =HIJE
 
 ?AFKP
+
+# F should be True, all other False

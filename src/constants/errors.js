@@ -19,3 +19,7 @@ export const INITIAL_FACTS_FORMAT_EXIT = 'Error: wrong initialFacts format : "';
 export const BRACKETS_FORMAT_EXIT = 'Error: wrong formated parentheses : ';
 
 export const INITIAL_FACTS_NOT_DEFINED_EXIT = 'Error: initialFacts are not defined';
+
+export const IF_AND_ONLY_IF_EXIT = 'Error: if and only if (<=>) is not suported';
+
+export const CONCLUSION_FORMAT_EXIT = 'Error: conclusion contains not supported features: "'

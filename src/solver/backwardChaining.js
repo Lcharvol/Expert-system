@@ -12,7 +12,7 @@ import {
     find,
 } from 'ramda';
 
-import { IMPLIES, IF_AND_ONLY_IF } from '../constants/symbols';
+import { IMPLIES, IF_AND_ONLY_IF, NOT } from '../constants/symbols';
 import {
     replaceVariableByValue,
     isAComplexConclusion,
@@ -44,8 +44,11 @@ const getUnknowVar = (str, dataStruct) => {
 
 const getConlusionQueries = str => {
     let queries = [];
+    let lastChar = '';
     map(c => {
-        if(isCapitalizAlpha(c)) queries = [...queries, c];
+        if(isCapitalizAlpha(c))
+            queries = [...queries, { value: c, not: equals(lastChar, NOT) ? true : false }];
+        lastChar = c;
     },str);
     return queries;
 };
@@ -74,13 +77,11 @@ const forEachAffectedRule = (affectedRules, dataStruct, querie) => {
             if(equals(dataStruct.store[conclusionQuerie], true) && haveANeg)
                 dataStruct.store[conclusionQuerie] = undefined
             else dataStruct.store[conclusionQuerie] = !haveANeg;
-        } else if(isAComplexConclusion(rightSide.line)) {
+        } else {
             const conclusionQueries = getConlusionQueries(rightSide.line);
             map(q => {
-                dataStruct.store[q] = true;
+                dataStruct.store[q.value] = q.not ? false : true;
             },conclusionQueries)
-        } else {
-
         };
     }, affectedRules)
     return dataStruct;

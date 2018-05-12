@@ -11,6 +11,8 @@ import {
     READ_ERROR,
     BRACKETS_FORMAT_EXIT,
     INITIAL_FACTS_NOT_DEFINED_EXIT,
+    IF_AND_ONLY_IF_EXIT,
+    CONCLUSION_FORMAT_EXIT,
 } from './constants/errors';
 import { FgRed } from './constants/colors';
 import { addSpaces } from './utils';
@@ -44,14 +46,24 @@ export const queriesNotDefinedExit = queries => {
 export const initialFactsNotDefinedExit = () => {
     print(INITIAL_FACTS_NOT_DEFINED_EXIT, FgRed);
     process.exit();
-}
+};
 
 export const initialFactsFormatExit = str => {
     print(`${INITIAL_FACTS_FORMAT_EXIT}${str}"`, FgRed);
     process.exit();
-}
+};
 
 export const bracketsFormatExit = str => {
     print(`${BRACKETS_FORMAT_EXIT}${str}`, FgRed);
     process.exit();
-}
+};
+
+export const ifAndOnlyIfExit = str => {
+    print(`${IF_AND_ONLY_IF_EXIT}`, FgRed);
+    process.exit();
+};
+
+export const conclusionFormatExit = str => {
+    print(`${CONCLUSION_FORMAT_EXIT}${str}"`, FgRed);
+    process.exit();
+};
